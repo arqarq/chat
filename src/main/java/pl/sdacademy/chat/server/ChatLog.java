@@ -23,6 +23,8 @@ class ChatLog {
         try { // nie try-with-resources
             ObjectOutputStream streamToClient = new ObjectOutputStream(client.getOutputStream());
             registerClients.put(client, streamToClient);
+            String addressIP = client.getInetAddress().toString();
+            System.out.println("### " + addressIP.substring(1) + " connected ###");
             return true;
         } catch (IOException e) {
             System.out.println("### Someone tried to connect, but was rejected ###");
