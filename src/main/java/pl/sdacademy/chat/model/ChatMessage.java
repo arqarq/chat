@@ -2,7 +2,7 @@ package pl.sdacademy.chat.model;
 
 import java.io.Serializable;
 
-public class ChatMessage implements Serializable {
+public class ChatMessage /*implements Serializable*/ {
     private static final long serialVersionUID = 1L; // static przed final
     private final String author;
     private final String message;
