@@ -11,7 +11,7 @@ public class ClientTerminal implements Runnable {
     private final Socket connectionToServer;
 
     public ClientTerminal() throws IOException {
-        connectionToServer = new Socket("IP", 5567);
+        connectionToServer = new Socket("192.168.8.4", 5567);
     }
 
     @Override
