@@ -1,19 +1,26 @@
 package pl.sdacademy.chat.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class DatedChatMessageTest {
     @Test
-    public void shouldCreateInstanceOfClass() {
+    public void shouldCopyValuesFromChatMessage() {
         // Given
-        ChatMessage chatMessage = new ChatMessage("Arek", "komunikat");
+        String author = "Arek";
+        String message = "kaczki";
+        ChatMessage chatMessage = new ChatMessage(author, message);
         // When
         DatedChatMessage datedChatMessage = new DatedChatMessage(chatMessage);
         // Then
+        assertEquals(author, datedChatMessage.getAuthor());
+        assertEquals(message, datedChatMessage.getMessage());
+        assertNotNull(datedChatMessage.getReceiveDate());
         assertThat(datedChatMessage.getReceiveDate()).isNotNull();
-        assertThat(datedChatMessage.getMessage()).isEqualTo("komunikat");
-        assertThat(datedChatMessage.getAuthor()).isEqualTo("Arek");
+        assertThat(datedChatMessage.getMessage()).isEqualTo(message);
+        assertThat(datedChatMessage.getAuthor()).isEqualTo(author);
     }
 }
