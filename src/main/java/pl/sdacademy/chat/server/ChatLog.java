@@ -6,11 +6,14 @@ import pl.sdacademy.chat.model.DatedChatMessage;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ChatLog {
     private Map<Socket, ObjectOutputStream> registerClients; // kolekcja z użytkownikami
+    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public ChatLog() {
         registerClients = new ConcurrentHashMap<>();
@@ -29,33 +32,31 @@ public class ChatLog {
     }
 
     public boolean unregister(Socket client) {
-        ObjectOutputStream clientToRemove = registerClients.remove(client);
-        if (clientToRemove != null) {
+        ObjectOutputStream connectionToRemovedClient = registerClients.remove(client);
+        if (connectionToRemovedClient != null) {
             try {
-                clientToRemove.close();
+                connectionToRemovedClient.close();
                 return true;
             } catch (IOException e) {
-                e.printStackTrace();
-                return false;
+                // nothing to do
             }
         }
         return false;
         // usuń klienta z kolekcji wszystkich klientów
     }
 
-    public void acceptMessage(ChatMessage chatMessage) {
-        DatedChatMessage datedChatMessage = new DatedChatMessage(chatMessage);
-        System.out.println("<" + datedChatMessage.getReceiveDate() + "> <"
-                + datedChatMessage.getAuthor() + ">: "
-                + datedChatMessage.getMessage() + ">");
-        registerClients.entrySet().forEach(x -> {
-            try {
-                x.getValue().writeObject(datedChatMessage);
-                x.getValue().flush();
-            } catch (IOException e) {
-                unregister(x.getKey());
-            }
-        });
+    public void acceptMessage(ChatMessage message) {
+        DatedChatMessage datedMessage = new DatedChatMessage(message);
+        printMessage(datedMessage);
+        updateClients(datedMessage);
+//        registerClients.entrySet().forEach(x -> {
+//            try {
+//                x.getValue().writeObject(datedMessage);
+//                x.getValue().flush();
+//            } catch (IOException e) {
+//                unregister(x.getKey());
+//            }
+//        });
 
         // przekonwertuj ChatMessage na DatedChatMessage
         // wpisz na ekran wiadomość w formacie:
@@ -63,5 +64,27 @@ public class ChatLog {
         // wyślij DatedChatMessage do wszystkich klientów
         //  jeżeli nie udało się wysłać komunikatu do którego z klientów
         //  to wyrejestruj tego klienta
+    }
+
+    private void printMessage(DatedChatMessage datedMessage) {
+        System.out.println(dateFormatter.format(datedMessage.getReceiveDate())
+                + " " + datedMessage.getAuthor()
+                + ": " + datedMessage.getMessage());
+    }
+
+    private void updateClients(DatedChatMessage datedMessage) {
+        Set<Map.Entry<Socket, ObjectOutputStream>> allEntries = registerClients.entrySet();
+        for (Map.Entry<Socket, ObjectOutputStream> entry : allEntries) {
+            ObjectOutputStream connectionToClient = entry.getValue();
+            try {
+                connectionToClient.writeObject(datedMessage);
+                connectionToClient.flush();
+            } catch (IOException e) {
+                unregister(entry.getKey());
+            }
+        }
+//        for (Socket client : registerClients.keySet()) {
+//            registerClients.get(client);
+//        }
     }
 }
