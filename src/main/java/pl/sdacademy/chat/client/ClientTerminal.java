@@ -7,10 +7,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class ClientTerminal implements Runnable {
+class ClientTerminal implements Runnable {
     private final Socket connectionToServer;
 
-    public ClientTerminal() throws IOException {
+    ClientTerminal() throws IOException {
         connectionToServer = new Socket("192.168.8.4", 5567);
     }
 

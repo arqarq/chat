@@ -2,7 +2,7 @@ package pl.sdacademy.chat.client;
 
 import java.io.IOException;
 
-public class ClientTerminalMain {
+class ClientTerminalMain {
     public static void main(String[] args) {
         try {
             ClientTerminal clientTerminal = new ClientTerminal();

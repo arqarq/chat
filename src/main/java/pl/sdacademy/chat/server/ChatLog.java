@@ -11,15 +11,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ChatLog {
+class ChatLog {
     private Map<Socket, ObjectOutputStream> registerClients; // kolekcja z użytkownikami
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public ChatLog() {
+    ChatLog() {
         registerClients = new ConcurrentHashMap<>();
     }
 
-    public boolean register(Socket client) {
+    boolean register(Socket client) {
         try { // nie try-with-resources
             ObjectOutputStream streamToClient = new ObjectOutputStream(client.getOutputStream());
             registerClients.put(client, streamToClient);
@@ -31,7 +31,7 @@ public class ChatLog {
         // zapisz klienta w kolekcji wszystkich klientów
     }
 
-    public boolean unregister(Socket client) {
+    boolean unregister(Socket client) {
         ObjectOutputStream connectionToRemovedClient = registerClients.remove(client);
         if (connectionToRemovedClient != null) {
             try {
@@ -45,7 +45,7 @@ public class ChatLog {
         // usuń klienta z kolekcji wszystkich klientów
     }
 
-    public void acceptMessage(ChatMessage message) {
+    void acceptMessage(ChatMessage message) {
         DatedChatMessage datedMessage = new DatedChatMessage(message);
         printMessage(datedMessage);
         updateClients(datedMessage);

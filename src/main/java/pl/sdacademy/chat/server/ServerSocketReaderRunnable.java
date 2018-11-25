@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
-public class ServerSocketReaderRunnable implements Runnable {
+class ServerSocketReaderRunnable implements Runnable {
     private final Socket client;
     private final ChatLog chatLog;
 
-    public ServerSocketReaderRunnable(Socket client, ChatLog chatLog) {
+    ServerSocketReaderRunnable(Socket client, ChatLog chatLog) {
         this.client = client;
         this.chatLog = chatLog;
     }
