@@ -1,6 +1,6 @@
 package pl.sdacademy.chat.demo;
 
-public class Demo {
+class Demo {
     public static void main(String[] args) {
         Location loc = new Location(10, 20, 15);
 
