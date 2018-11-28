@@ -39,11 +39,17 @@ class Point {
         y = yc;
     }
 
-    void move(Integer dx, Integer dy) {
+    private void move(Integer dx, Integer dy) {
         x = x + dx;
         y = y + dy;
 
         System.out.println("Point x location: " + x);
         System.out.println("Point y location: " + y);
+    }
+
+    class Pointy {
+        void cos() {
+            move(2, 2);
+        }
     }
 }
