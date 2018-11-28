@@ -4,7 +4,9 @@ class Demo {
     public static void main(String[] args) {
         Location loc = new Location(10, 20, 15);
 
-        loc.move(10, 10, 5);
+        int cc = 10;
+        loc.move(cc, 10, 5);
+        System.out.println(cc);
     }
 }
 
@@ -17,6 +19,7 @@ class Location extends Point {
     }
 
     void move(Integer dx, Integer dy, Integer dz) {
+        dx++;
         x = x + dx;
         y = y + dy;
         z = z + dz;
