@@ -17,6 +17,7 @@ class ClientTerminalMain {
                 thread.setName("Terminal");
                 thread.start();
                 thread.join();
+                return;
             } catch (IOException e) {
                 System.out.println("Could not connect to server: " + e.getMessage());
 //                e.printStackTrace();

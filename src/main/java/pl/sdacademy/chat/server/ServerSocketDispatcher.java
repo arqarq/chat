@@ -17,7 +17,7 @@ class ServerSocketDispatcher {
         try {
             while (true) { // środek pętli do innej klasy w przypadku testowania (żeby nie odpalać while'a w testach!)
                 Socket client = server.accept();
-                System.out.println("### New client connected! ###");
+//                System.out.println("### New client connected! ###");
                 Runnable clientTask = new ServerSocketReaderRunnable(client, chatLog);
                 new Thread(clientTask).start();
             }

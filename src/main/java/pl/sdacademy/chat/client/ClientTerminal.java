@@ -11,7 +11,7 @@ class ClientTerminal implements Runnable {
     private final Socket connectionToServer;
 
     ClientTerminal() throws IOException {
-        connectionToServer = new Socket("192.168.0.11", 5567);
+        connectionToServer = new Socket("192.168.0.4", 5567);
     }
 
     @Override
@@ -29,7 +29,7 @@ class ClientTerminal implements Runnable {
                 streamToServer.flush();
             } while (!message.equalsIgnoreCase("exit"));
         } catch (IOException e) {
-            System.out.println("Server closed connection. ");
+            System.out.println("Server closed connection.");
             e.printStackTrace();
         }
         System.out.println("Disconnecting");

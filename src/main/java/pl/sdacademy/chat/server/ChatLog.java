@@ -38,6 +38,8 @@ class ChatLog {
         if (connectionToRemovedClient != null) {
             try {
                 connectionToRemovedClient.close();
+                String addressIP = client.getInetAddress().toString();
+                System.out.println("### " + addressIP.substring(1) + " disconnected ###");
                 return true;
             } catch (IOException e) {
                 // nothing to do
