@@ -1,14 +1,14 @@
 package pl.sdacademy.chat.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class DatedChatMessageTest {
+class DatedChatMessageTest {
     @Test
-    public void shouldCopyValuesFromChatMessage() {
+    void shouldCopyValuesFromChatMessage() {
         // Given
         String author = "Arek";
         String message = "kaczki";
