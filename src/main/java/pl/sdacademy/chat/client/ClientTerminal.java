@@ -11,12 +11,13 @@ class ClientTerminal implements Runnable {
     private final Socket connectionToServer;
 
     ClientTerminal() throws IOException {
-        connectionToServer = new Socket("192.168.0.4", 5567);
+        connectionToServer = new Socket("192.168.0.11", 5567);
     }
 
     @Override
     public void run() {
-        try (ObjectOutputStream streamToServer = new ObjectOutputStream(connectionToServer.getOutputStream())) {
+        try (ObjectOutputStream streamToServer = new ObjectOutputStream(connectionToServer.getOutputStream())
+        ) {
             Scanner scanner = new Scanner(System.in);
             System.out.print("Your username: ");
             String username = scanner.nextLine();
